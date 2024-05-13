@@ -4,18 +4,18 @@ services:
     image: postgres:16.3-alpine3.18
     env_file:
       - .env
+    environment:
+      PGDATA: /data/postgres
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
       interval: 5s
       timeout: 5s
       retries: 5
     shm_size: 128mb
+    volumes:
+       - postgres:/data/postgres
   web:
     build: .
-    volumes:
-      - .:/code
-    ports:
-      - "8000:8000"
     depends_on:
       db:
         condition: service_healthy
@@ -33,7 +33,7 @@ services:
       - caddy_config:/config
     depends_on:
       - web
-
 volumes:
   caddy_data:
   caddy_config:
+  postgres:
