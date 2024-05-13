@@ -1,0 +1,68 @@
+@keyframes addItem {
+    0% {
+      opacity: 0;
+      transform: translateY(-20px);
+      max-height: 0;
+      margin: 0;
+      padding: 0;
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      max-height: 100px;
+    }
+}
+@keyframes removeItem {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 100px;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-20px);
+        max-height: 0;
+        margin: 0;
+        padding: 0;
+    }
+}
+.hoverable {
+    border-radius: 5px;
+}
+.hoverable:hover {
+    color: var(--pico-contrast);
+}
+.todo-items {
+    margin: 0;
+    padding: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.3s ease, margin 0.3s ease, padding 0.3s ease;
+    .todo-item {
+        list-style-type: none;
+        .completed {
+            text-decoration: line-through;
+            color: var(--pico-muted-color);
+        }
+    }
+}
+.htmx-swapping:not(.new-todo-item) {
+    animation: removeItem 0.3s forwards;
+}
+.htmx-swapping,.new-todo-item {
+    animation: addItem 0.3s forwards;
+}
+.spacer {
+    display: flex;
+    .spacer-item {
+        padding: 5px 10px 5px 10px;
+    }
+}
+.expand-into-available-space {
+    flex: 1;
+}
+.align-center-vertically {
+    display: flex;
+    align-items: center;
+}
+.no-margin {
+    margin-bottom: 0px !important;
+}

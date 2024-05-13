@@ -1,0 +1,17 @@
+<div id="todo-list">
+    <ul class="todo-items">
+        {% for todo in todos %}
+            {% include "todo_app/app/todo-item.html" %}
+        {% endfor %}
+    </ul>
+    <hr/>
+    <form
+        hx-post="{% url 'todo_app:todo_list' %}"
+        hx-target="#todo-list"
+    >
+        <fieldset role="group">
+            <input name="description" type="text" placeholder="What do you want humanity to do?"/>
+            <input  type="submit"value="Add" />
+        </fieldset>
+    </form>
+</div>

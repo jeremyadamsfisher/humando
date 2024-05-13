@@ -1,0 +1,18 @@
+{% if editing %}
+    <form
+        hx-post="{% url 'todo_app:todo_text' todo_id=todo.id %}"
+        hx-swap="outerHTML"
+        class="align-center-vertically expand-into-available-space">
+        <fieldset class="no-margin" role="group">
+            <input type="text" placeholder="{{ todo.description }}" name="description" class="no-margin"/>
+            <input type="submit" value="Update" class="no-margin secondary"/>
+        </fieldset>
+    </form>
+{% else %}
+    <span
+        hx-get="{% url 'todo_app:todo_text' todo_id=todo.id %}"
+        hx-swap="outerHTML"
+        class="{% if todo.completed %}completed{% endif %}">
+        {{ todo.description }}
+    </span>
+{% endif %}

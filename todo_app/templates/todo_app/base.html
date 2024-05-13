@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{% static 'todo_app/style.css' %}">
+    <title>HumanDo - {% block title %}{% endblock %}</title>
+  </head>
+  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' hx-ext="class-tools">
+    <nav class="container-fluid">
+      <ul>
+        <li>
+          <a href="#" class="contrast" onclick="event.preventDefault()"
+          ><strong>HumanDo</strong></a
+            >
+          </li>
+        </ul>
+        <ul>
+          <li><a href="{% url 'todo_app:index' %}">About</a></li>
+          <li><a href="{% url 'todo_app:app' %}">App</a></li>
+        </ul>
+      </nav>
+      <main class="container">{% block content %}{% endblock %}</main>
+      <script src="https://unpkg.com/htmx.org@1.9.12" integrity="sha384-ujb1lZYygJmzgSwoxRggbCHcjc0rB2XoQrxeTUQyRjrOnlCoYta87iKBWq3EsdM2" crossorigin="anonymous"></script>
+      <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/class-tools.js"></script>
+      <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    </body>
+  </html>

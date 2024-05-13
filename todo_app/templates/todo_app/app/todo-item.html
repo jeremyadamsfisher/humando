@@ -1,0 +1,21 @@
+<li
+    id="todo-{{ todo.id }}"
+    class="todo-item spacer {% if todo.id == newest_todo_id %}new-todo-item{% endif %}"
+    classes="remove new-todo-item:0.3s">
+    <div class="spacer-item expand-into-available-space hoverable align-center-vertically">
+        <input
+            class="align-center-vertically"
+            type="checkbox"
+            {% if todo.completed %}checked{% endif %}
+            hx-post="{% url "todo_app:todo" todo.id %}"
+            hx-swap="outerHTML"
+            hx-target="closest li">
+        {% include "todo_app/app/todo-text.html" with editing=False %}
+    </div>
+    <div class="spacer-item align-center-vertically"
+         hx-delete="{% url "todo_app:todo" todo.id %}"
+         hx-swap="delete swap:0.3s"
+         hx-target="closest li">
+        <i class="fa-solid fa-trash hoverable"></i>
+    </div>
+</li>
