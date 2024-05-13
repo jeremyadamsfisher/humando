@@ -10,6 +10,8 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+from ast import literal_eval
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,13 +25,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-yso_s06gtufc$g+p9sns0m*14(=y4h_ceppf7coai9=nr+4ka#"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = literal_eval(os.environ.get("DEBUG", "False"))
 
-ALLOWED_HOSTS = ["hot-hugely-husky.ngrok-free.app"]
-CSRF_TRUSTED_ORIGINS = ["https://hot-hugely-husky.ngrok-free.app"]
+ALLOWED_HOSTS = literal_eval(os.environ.get("ALLOWED_HOSTS", "[]"))
+CSRF_TRUSTED_ORIGINS = literal_eval(os.environ.get("CSRF_TRUSTED_ORIGINS", "[]"))
 
 # Application definition
-
 INSTALLED_APPS = [
     "todo_app.apps.TodoAppConfig",
     "django.contrib.admin",
@@ -76,8 +77,12 @@ WSGI_APPLICATION = "todo.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("POSTGRES_DB"),
+        "USER": os.environ.get("POSTGRES_USER"),
+        "PASSWORD": os.environ.get("POSTGRES_PASSWORD"),
+        "HOST": "db",
+        "PORT": 5432,
     }
 }
 
@@ -122,3 +127,7 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+STATIC_URL = "static/"
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
